@@ -5,17 +5,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ConfigurationActivity extends AppCompatActivity {
 
-    private int testCounter;
     private String name;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private EditText input;
+    private EditText nameInput;
+    private RadioGroup sexRadio;
+    private int selectedRadioId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,12 @@ public class ConfigurationActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("BD1", Context.MODE_PRIVATE);
 
         name = sharedPreferences.getString("name", "Name");
-        testCounter = sharedPreferences.getInt("testCounter", 0);
-        testCounter++;
-        Toast.makeText(this, "Fodase "+testCounter+" vezes", Toast.LENGTH_SHORT).show();
+        selectedRadioId = sharedPreferences.getInt("sexRadioId", 0);
+        nameInput = findViewById(R.id.config_input);
+        nameInput.setText(name);
+        sexRadio = findViewById(R.id.config_radio_options);
 
-        input = findViewById(R.id.config_input);
-        input.setText(name);
+        sexRadio.check(selectedRadioId);
 
         Button exitButton = findViewById(R.id.config_save);
         exitButton.setOnClickListener(v -> finish());
@@ -39,10 +40,10 @@ public class ConfigurationActivity extends AppCompatActivity {
     protected void onPause() {
 
         editor = sharedPreferences.edit();
-        name = input.getText().toString();
-        editor.putInt("testCounter", testCounter);
+        name = nameInput.getText().toString();
+        selectedRadioId = sexRadio.getCheckedRadioButtonId();
         editor.putString("name", name);
-
+        editor.putInt("sexRadioId", selectedRadioId);
         editor.commit();
         super.onPause();
     }
