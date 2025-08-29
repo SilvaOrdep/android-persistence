@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">persistenceApp</string>
+    <string name="button_config">Configuration</string>
+    <string name="button_about">About</string>
+    <string name="button_exit">Exit</string>
+    <string name="button_save">Save</string>
+    <string name="about_presentation">Hello, this is my second android app!</string>
+    <string name="about_title">About dialog</string>
+    <string name="configuration_title">Configuration</string>
+    <string name="config_male">Male</string>
+    <string name="config_female">Female</string>
+    <string name="config_input_name">Name</string>
+</resources>
